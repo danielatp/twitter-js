@@ -3,7 +3,7 @@ const _ = require('lodash');
 var data = [];
 
 function add (name, content) {
-  var id = Math.floor(Math.random() * data.length);
+  var id = data.length;
   data.push({ id: id, name: name, content: content });
 }
 

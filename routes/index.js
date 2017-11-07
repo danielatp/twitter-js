@@ -8,21 +8,32 @@ router.get('/', function (req, res) {
   res.render( 'index', { tweets: tweets } );
 });
 
+/*
+res.send("") // expects plain HTML
+res.render() //points to a file, with help of nunjucks
+*/
+
+/*
+router.get('/stylesheets/style.css', function(req, res, next){
+  res.sendFile('/stylesheets/style.css', {root: __dirname + '/../public/'})
+});
+
+THIS FUNC WAS REPLACE BY :
+app.use(express.static('public')) in app.js
+// __dirname specifies the total path where the file is stored in my computer
+*/
+
 router.get( '/users/:name', function (req, res) {
   var name = req.params.name;
-  // var content =
   var list = tweetBank.find({name:name});
-  console.log(list);
+  // console.log(list);
   res.render('index', { tweets: list});
 });
 
 router.get('/tweets/:id', (req, res) => {
-  var num = Number(req.params.id);
-  var getTweet = tweetBank.find(function (obj) {
-    return obj.id === num;
-  })
-  res.send(getTweet);
-
+  var tweetsWithThatId = Number(req.params.id);
+  var getTweet = tweetBank.find({ id:tweetsWithThatId });
+  res.render('index', { tweets: getTweet});
 })
 
 /*

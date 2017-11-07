@@ -10,11 +10,25 @@ app.listen(PORT, () => {
 })
 
 app.use(volleyball);
-app.use('/', routes);
-app.use(express.static('public'));
+/*
+VOLLEYBALL (OR MORGAN) IS REPLACING THIS FUNC THAT ACTS LIKE MIDDLEWARE:
+app.use(function(req, res, next){
+  console.log('something here -', req.method, req.path )
+  res.on('finish', function(){
+    console.log('responded:', res.statusCode);
+  })
+  next()
+})
+*/
+app.use('/', routes); //for every incoming requests, use routes folder
+app.use(express.static('public')); //should use __dirname???
+
 
 
 nunjucks.configure('views', {noCache: true}); // this configuration lets us use res.render() later, and point nunjucks to the proper directory for templates
+
+app.set('view engine', 'html'); // have res.render work with html files
+app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
 
 /*
 var locals = {
@@ -30,6 +44,3 @@ nunjucks.render('index.html', locals, function (err, output) {
   console.log(output);
 });
 */
-app.set('view engine', 'html'); // have res.render work with html files
-app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
-
