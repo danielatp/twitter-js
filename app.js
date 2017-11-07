@@ -2,6 +2,8 @@ const express = require( 'express' );
 const app = express();
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
+
 
 
 const PORT = 3000;
@@ -9,21 +11,9 @@ app.listen(PORT, () => {
   console.log('server listening');
 })
 
-app.use(volleyball)
-
-app.get('/', (req, res) => {
-  // res.render('index', function(err, html){
-  //   res.send(html);
-  // });
-  res.render('index.html', locals, function (err, output) {
-    res.send(output);
-  });
-});
-
-app.get('/news', (req, res) => {
-  res.send('news');
-})
-
+app.use(volleyball);
+app.use('/', routes);
+app.use(express.static('public'));
 
 var locals = {
   title: 'An Example',
