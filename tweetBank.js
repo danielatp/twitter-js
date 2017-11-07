@@ -3,7 +3,8 @@ const _ = require('lodash');
 var data = [];
 
 function add (name, content) {
-  data.push({ name: name, content: content });
+  var id = Math.floor(Math.random() * data.length);
+  data.push({ id: id, name: name, content: content });
 }
 
 function list () {
@@ -41,6 +42,6 @@ for (let i = 0; i < 10; i++) {
 module.exports.add('user1', 'one tweet');
 
 // console.log(data)
-console.log(module.exports.find(function(o){
-  return o.name}
-))
+// console.log(module.exports.find(function(o){
+//   return o.name}
+// ))
