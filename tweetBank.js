@@ -40,6 +40,7 @@ for (let i = 0; i < 10; i++) {
   module.exports.add( getFakeName(), getFakeTweet() );
 }
 module.exports.add('user1', 'one tweet');
+module.exports.add('user1', 'second tweet');
 
 // console.log(data)
 // console.log(module.exports.find(function(o){

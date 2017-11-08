@@ -5,7 +5,7 @@ const tweetBank = require('../tweetBank');
 
 router.get('/', function (req, res) {
   let tweets = tweetBank.list();
-  res.render( 'index', { tweets: tweets } );
+  res.render( 'index', { tweets: tweets, showForm: true} );
 });
 
 /*
@@ -27,14 +27,22 @@ router.get( '/users/:name', function (req, res) {
   var name = req.params.name;
   var list = tweetBank.find({name:name});
   // console.log(list);
-  res.render('index', { tweets: list});
+  res.render('index', { tweets: list, showForm: true, username: req.params.name});
 });
 
 router.get('/tweets/:id', (req, res) => {
   var tweetsWithThatId = Number(req.params.id);
   var getTweet = tweetBank.find({ id:tweetsWithThatId });
-  res.render('index', { tweets: getTweet});
+  res.render('index', { tweets: getTweet, showForm: true});
 })
+
+router.post('/tweets', function(req, res) {
+  var name = req.body.name;
+  var text = req.body.text;
+  console.log(name, text);
+  tweetBank.add(name, text);
+  res.redirect('/');
+});
 
 /*
 THIS IS FOR THE locals OBJ EXAMPLE
